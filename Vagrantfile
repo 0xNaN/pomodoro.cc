@@ -8,6 +8,7 @@ Vagrant.configure('2') do |config|
     web.vm.synced_folder "./", "/pomodoro.cc", type: "nfs", :mount_options => ['nolock,vers=3,udp,noatime,actimeo=1']
     web.vm.provision "shell", path: "opt/env"
     web.vm.provision :ansible do |ansible|
+      ansible.inventory_path = "provisioning/hosts"
       ansible.playbook = "provisioning/web.yml"
       # ansible.verbose = true
     end
