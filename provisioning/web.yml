@@ -44,7 +44,12 @@
       notify: restart nginx
 
     - name: configure main nginx proxy
-      copy: src=../main/etc/nginx/sites-available/default dest=/etc/nginx/sites-available/default group=www-data
+      copy: src=../main/etc/nginx/sites-available/default dest=/etc/nginx/sites-enabled/default group=www-data
+      sudo: yes
+      notify: restart nginx
+
+    - name: configure app
+      copy: src=../app/etc/nginx/sites-available/app dest=/etc/nginx/sites-enabled/app group=www-data
       sudo: yes
       notify: restart nginx
 
