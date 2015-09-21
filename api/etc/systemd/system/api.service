@@ -1,0 +1,11 @@
+[Service]
+ExecStart=/usr/bin/node /pomodoro.cc/api/index.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+User=nobody
+Group=nobody
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
