@@ -20,6 +20,14 @@ server {
   ssl_session_cache           shared:SSL:10m;
   ssl_session_timeout         10m;
 
+  location ~ ^/(auth|api)/ {
+    proxy_redirect off;
+    proxy_set_header Host $host:$server_port;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_pass http://0.0.0.0:8001;
+  }
+
   location / {
     proxy_redirect off;
     proxy_set_header Host $host:$server_port;
@@ -48,12 +56,4 @@ server {
 
   #   rewrite /ws/(.*) /$1 break;
   #   proxy_redirect off;
-  # }
-
-  # location ~ ^/(auth|api)/ {
-  #   proxy_redirect off;
-  #   proxy_set_header Host $host:$server_port;
-  #   proxy_set_header X-Real-IP $remote_addr;
-  #   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  #   proxy_pass http://pomodoro-api;
   # }

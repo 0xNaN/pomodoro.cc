@@ -5,23 +5,36 @@
     - nginx
     - nodejs
 
+- name: create project directory
+  file: path=/pomodoro.cc state=directory
+  sudo: yes
+
+- name: copy ssl
+  copy: src=ssl/ dest=/pomodoro.cc/ssl/ owner=ubuntu group=ubuntu mode=0644
+  sudo: yes
+
+- name: copy app www
+  copy: src=../../../app/www/ dest=/pomodoro.cc/app/www/ owner=ubuntu group=ubuntu mode=0644
+  sudo: yes
+
+
 - name: remove default nginx configuration
   file: path=/etc/nginx/sites-available/default state=absent
   sudo: yes
   notify: restart nginx
 
 - name: configure main nginx proxy
-  copy: src=../main/etc/nginx/sites-available/default dest=/etc/nginx/sites-enabled/default group=www-data
+  copy: src=proxy dest=/etc/nginx/sites-enabled/default group=www-data
   sudo: yes
   notify: restart nginx
 
 - name: configure app
-  copy: src=../app/etc/nginx/sites-available/app dest=/etc/nginx/sites-enabled/app group=www-data
+  copy: src=app dest=/etc/nginx/sites-enabled/app group=www-data
   sudo: yes
   notify: restart nginx
 
 - name: Install unit file
-  copy: src=../api/etc/systemd/system/api.service dest=/etc/systemd/system/api.service owner=root mode=644
+  copy: src=api.service dest=/etc/systemd/system/api.service owner=root mode=644
   sudo: yes
   notify:
     - reload systemd
