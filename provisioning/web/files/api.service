@@ -1,5 +1,6 @@
 [Service]
-ExecStart=/usr/bin/node /pomodoro.cc/api/index.js
+ExecStart=/usr/bin/nodejs index.js
+WorkingDirectory=/pomodoro.cc/api
 Restart=always
 StandardOutput=syslog
 StandardError=syslog

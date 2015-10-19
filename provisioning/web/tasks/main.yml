@@ -4,19 +4,36 @@
   with_items:
     - nginx
     - nodejs
+    - npm
 
 - name: create project directory
-  file: path=/pomodoro.cc state=directory
+  file: path=/pomodoro.cc state=directory owner=ubuntu group=ubuntu mode=0755
   sudo: yes
 
 - name: copy ssl
-  copy: src=ssl/ dest=/pomodoro.cc/ssl/ owner=ubuntu group=ubuntu mode=0644
+  copy: src=ssl dest=/pomodoro.cc/ directory_mode=yes owner=ubuntu group=ubuntu mode=0755
   sudo: yes
 
 - name: copy app www
-  copy: src=../../../app/www/ dest=/pomodoro.cc/app/www/ owner=ubuntu group=ubuntu mode=0644
+  copy: src=../../../app/www/ dest=/pomodoro.cc/app/www/ owner=ubuntu group=ubuntu mode=0755
   sudo: yes
 
+- name: copy api
+  synchronize:
+    src=../../../api/
+    dest="/pomodoro.cc/api/"
+    rsync_opts=--exclude=.git,--exclude=node_modules,--exclude=etc
+    recursive=yes
+    delete=yes
+  sudo: yes
+
+- name: copy credentials
+  copy: src=../../../credentials.json dest=/pomodoro.cc/ owner=ubuntu group=ubuntu mode=0755
+  sudo: yes
+
+- name: install api dependencies
+  npm: path="/pomodoro.cc/api/"
+  sudo: yes
 
 - name: remove default nginx configuration
   file: path=/etc/nginx/sites-available/default state=absent
@@ -34,7 +51,7 @@
   notify: restart nginx
 
 - name: Install unit file
-  copy: src=api.service dest=/etc/systemd/system/api.service owner=root mode=644
+  copy: src=api.service dest=/etc/systemd/system/api.service owner=root mode=755
   sudo: yes
   notify:
     - reload systemd

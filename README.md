@@ -17,7 +17,6 @@ With the help of insightful statistics, you'll be able to better understand how 
 # Setup
 
 ```
-chmod +x opt/*
 opt/bootstrap
 ```
 
@@ -29,6 +28,13 @@ Add an entry in your `/etc/hosts`:
 ```
 192.168.11.2    pomodoro.dev
 ```
+
+Setup up development ssl configuration
+
+```
+unzip ssl.zip -d provisioning/web/files/
+```
+
 
 Boot up the vagrant with:
 
