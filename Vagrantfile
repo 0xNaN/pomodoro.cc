@@ -22,6 +22,7 @@ Vagrant.configure('2') do |config|
     d.pull_images "alpine"
     d.pull_images "smebberson/alpine-nginx"
     d.pull_images "smebberson/alpine-redis"
+    d.pull_images "asaaki/elixir-pure-alpine"
     d.pull_images "mongo"
     d.pull_images "jekyll/jekyll:stable"
   end
