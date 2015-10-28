@@ -11,7 +11,9 @@ defmodule ApiV2.Router do
   plug :dispatch
 
   get "/tasks" do
-    send_resp(conn, 200, Poison.encode!([]))
+    # send_resp(conn, 200, Poison.encode!([]))
+    tasks = ApiV2.Repo.all_tasks
+    send_resp(conn, 200, Poison.encode!(tasks))
   end
 
   match _ do
