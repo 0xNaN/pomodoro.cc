@@ -7,6 +7,7 @@ RUN mix local.hex
 RUN mix compile
 ADD . /app
 
-EXPOSE 4000
+ENV MIX_ENV prod
+EXPOSE 6000
 
 CMD ["mix","run","--no-halt"]

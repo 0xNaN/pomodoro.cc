@@ -10,11 +10,11 @@ defmodule ApiV2.Router do
   plug :match
   plug :dispatch
 
-  get "/" do
-    send_resp(conn, 200, "Hi!")
+  get "/tasks" do
+    send_resp(conn, 200, Poison.encode!([]))
   end
 
   match _ do
-    send_resp(conn, 404, "this was a hole in the system")
+    send_resp(conn, 404, "this is a hole in the system")
   end
 end
