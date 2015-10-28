@@ -19,6 +19,7 @@ stop_container(){
 
 
 stop_container 'pomodoro-api'
+stop_container 'pomodoro-api_v2'
 stop_container 'pomodoro-ws'
 stop_container 'pomodoro-blog'
 stop_container 'pomodoro-app'

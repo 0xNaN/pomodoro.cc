@@ -88,6 +88,23 @@ fi
 
 
 
+if [ -z "$(id_for_container 'pomodoro-api_v2')" ]; then
+  echo ""
+  echo ""
+  echo ""
+  echo "----> STARTING 'pomodoro-api_v2'"
+  docker run --name pomodoro-api_v2 \
+    --restart=always \
+    --detach=true \
+    --env ENV="$ENV" \
+    christianfei/pomodoro-api_v2
+fi
+
+
+
+
+
+
 if [ -z "$(id_for_container 'pomodoro-api')" ]; then
   echo ""
   echo ""
@@ -101,8 +118,11 @@ if [ -z "$(id_for_container 'pomodoro-api')" ]; then
     --volume $PROJECT_DIR/shared:/shared \
     --link pomodoro-api-sessions:pomodoro-api-sessions \
     --link pomodoro-api-db:pomodoro-api-db \
+    --link pomodoro-api_v2:pomodoro-api_v2 \
     christianfei/pomodoro-api
 fi
+
+
 
 
 
