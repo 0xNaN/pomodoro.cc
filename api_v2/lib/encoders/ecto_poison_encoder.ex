@@ -1,4 +1,4 @@
-defimpl Poison.Encoder, for: Task do
+defimpl Poison.Encoder, for: TaskModel do
   def encode(message, options) do
     map = message
           |> Map.from_struct

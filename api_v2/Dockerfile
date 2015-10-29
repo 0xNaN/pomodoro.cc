@@ -4,8 +4,8 @@ ADD mix.exs /app/mix.exs
 WORKDIR /app
 RUN mix deps.get
 RUN mix local.hex
-RUN mix compile
 ADD . /app
+RUN mix compile
 
 ENV MIX_ENV prod
 EXPOSE 6000

@@ -20,7 +20,7 @@ Vagrant.configure('2') do |config|
   config.vm.provision "shell", run: "always", path: "opt/docker.fix"
   config.vm.provision "docker" do |d|
     d.pull_images "alpine"
-    d.pull_images "smebberson/alpine-nginx"
+    d.pull_images "connexiolabs/alpine-nginx"
     d.pull_images "smebberson/alpine-redis"
     d.pull_images "asaaki/elixir-pure-alpine"
     d.pull_images "mongo"

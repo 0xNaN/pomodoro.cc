@@ -1,4 +1,4 @@
-defmodule Task do
+defmodule TaskModel do
   use Ecto.Model
 
   schema "task" do
