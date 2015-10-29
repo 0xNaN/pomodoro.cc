@@ -24,3 +24,9 @@ script:
 - opt/docker.run DEV
 - opt/docker.seed
 - app/opt/test.e2e
+
+deploy:
+  provider: script
+  script: scripts/deploy
+  on:
+    branch: master
